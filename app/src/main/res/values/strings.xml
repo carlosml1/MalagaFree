@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">MalagaFree</string>
+    <string name="nombre_app">Málaga Free</string>
+    <string name="mapa_de_m_laga">Mapa de Málaga</string>
+    <string name="productos">Productos</string>
+    <string name="tickets_y_noticias">Tickets y Noticias</string>
+    <string name="tickets">Crear Ticket</string>
+    <string name="nombre">Nombre:</string>
+    <string name="numeroTelefono">N.Teléfono:</string>
+    <string name="ubicacionText">Ubicación:</string>
+    <string name="horarioTxt">Horario:</string>
+    <string name="restaurantes_bares_del_centro_de_m_laga">Restaurantes, Bares y Heladerias \n Del Centro De Málaga</string>
+    <string name="restaurantes_bares_de_MalagaEste_de_m_laga">Restaurantes, Bares y Heladerias \n De Málaga Este</string>
+    <string name="restaurantes_bares_del_PuertoDeLaTorre">Restaurantes, Bares y Heladerias \n Del Puerto De La Torre</string>
+    <string name="restaurantes_bares_del_CruzDeHumilladero">Restaurantes, Bares y Heladerias \n De Cruz De Humilladero</string>
+    <string name="restaurantes_bares_del_CarreteraDeCadiz">RRestaurantes, Bares y Heladerias \n De Carretera De Cadiz</string>
+    <string name="restaurantes_bares_del_Churriana">Restaurantes, Bares y Heladerias \n De Churriana</string>
+    <string name="restaurantes_bares_del_Campanilla">Restaurantes, Bares y Heladerias \n De Campanilla</string>
+    <string name="restaurantes_bares_del_Teatinos">Restaurantes, Bares y Heladerias \n De Teatinos</string>
+    <string name="restaurantes_bares_del_MonstesDeMalaga">Restaurantes, Bares y Heladerias \n De Montes De Málaga</string>
+    <string name="aaccesibilidadTxt">Accesible:</string>
+    <string name="buscar_por_codigo_de_barra">Buscar por Código de Barra</string>
+    <string name="buscar_por_nombre_del_producto">Buscar por Nombre del Producto</string>
+    <string name="escanear_c_digo_de_barra">Escanear Código de Barra</string>
+    <string name="buscar">  Buscar Productos...</string>
+    <string name="Crear_un_Ticket">Crear un Ticket</string>
+    <string name="noticias">Noticias</string>
+    <string name="titulo_ticket">En esta pantalla vas a poder crear un ticket para poder añadir productos a la base de dato.\n\n Solo necesitas rellenar los campos que se solicitan abajo</string>
+</resources>
