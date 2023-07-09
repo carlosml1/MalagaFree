@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.ColorDrawable
@@ -19,11 +20,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
@@ -53,6 +56,7 @@ class ZonaRecyclerAdapter(var zonas: MutableList<Zona>) :
     }
 
     inner class ZonaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val cardZona: CardView = itemView.findViewById(R.id.card_zonas)
         private val mostrarNombre: TextView = itemView.findViewById(R.id.mostrarNombre)
         private val mostrarNumero: TextView = itemView.findViewById(R.id.mostrarNumero)
         private val mostrarUbicacion: TextView = itemView.findViewById(R.id.mostrarUbicacion)
@@ -150,6 +154,14 @@ class ZonaRecyclerAdapter(var zonas: MutableList<Zona>) :
 
             }
 
+            when (zona.establecimiento){
+                "Bar" ->  cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.verde_claro))
+                "Restaurante" ->  cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.beige))
+                "Heladeria" ->  cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.morado_claro))
+            }
+
+
+
         }
 
         // Función para convertir dp a píxeles
@@ -214,6 +226,7 @@ class ZonaRecyclerAdapter(var zonas: MutableList<Zona>) :
                 Toast.makeText(itemView.context, "Coordenadas de ubicación inválidas", Toast.LENGTH_SHORT).show()
             }
         }
+
 
     }
 

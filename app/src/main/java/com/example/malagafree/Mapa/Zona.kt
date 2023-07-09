@@ -11,5 +11,6 @@ data class Zona(
     val id: Long,
     val accesible: String,
     val ubicacion: String,
-    val zona: String
+    val zona: String,
+    val establecimiento: String
 )

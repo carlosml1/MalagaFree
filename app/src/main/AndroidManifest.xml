@@ -6,6 +6,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -19,14 +21,21 @@
         android:theme="@style/Theme.MalagaFree"
         tools:targetApi="31">
         <activity
+            android:name=".Mapa.ZonasMenuMapa"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".TicketsYNoticias.Noticias"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".TicketsYNoticias.Ticket"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".TicketsYNoticias.MenuTicketsYNoticias"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Productos.RecyclerProductos"
             android:exported="false"
@@ -41,10 +50,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Mapa.MostrarZonaRecycler"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Mapa.MenuMapa"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

@@ -1,8 +1,14 @@
 package com.example.malagafree.Mapa
 
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Window
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,12 +22,14 @@ class MostrarZonaRecycler : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var recyclerView: RecyclerView
     private lateinit var zonaAdapter: ZonaRecyclerAdapter
+    private lateinit var sharedPreferences: SharedPreferences
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mostrar_zona_recycler)
         val textTitulo: TextView = findViewById(R.id.tituloZona)
+        val btnInfoZona: ImageButton = findViewById(R.id.btnInfoZona)
 
         ModoInversivo.setImmersiveMode(this)
 
@@ -29,6 +37,7 @@ class MostrarZonaRecycler : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
 
         val nombreZona = intent.getStringExtra("nombreZona")
+
 
         textTitulo.text = ponerTituloZona(nombreZona.toString())
 
@@ -53,8 +62,9 @@ class MostrarZonaRecycler : AppCompatActivity() {
                     val ubicacion = documentSnapshot.getString("Ubicacion")
                     val Accesibilidad = documentSnapshot.getString("Accesible")
                     val id = documentSnapshot.getLong("id")
+                    val establecimiento = documentSnapshot.getString("Establecimiento")
 
-                    if (numero != null && latitud != null && longitud != null && horario != null && id != null && ubicacion != null && Accesibilidad != null) {
+                    if (numero != null && latitud != null && longitud != null && horario != null && id != null && ubicacion != null && Accesibilidad != null && establecimiento != null) {
                         val zona = Zona(
                             nombre,
                             numero,
@@ -65,7 +75,8 @@ class MostrarZonaRecycler : AppCompatActivity() {
                             id,
                             Accesibilidad,
                             ubicacion,
-                            nombreZona.toString()
+                            nombreZona.toString(),
+                            establecimiento
                         )
                         zonas.add(zona)
                     }
@@ -76,6 +87,18 @@ class MostrarZonaRecycler : AppCompatActivity() {
             zonaAdapter.notifyDataSetChanged()
         }.addOnFailureListener {
             // Manejar errores
+        }
+
+        btnInfoZona.setOnClickListener {
+            showDialog(this)
+        }
+
+        // Verificar si el diálogo ya se ha mostrado antes
+        sharedPreferences = getSharedPreferences("dialog_preferences", Context.MODE_PRIVATE)
+        val dialogShown = sharedPreferences.getBoolean("dialog_shown", false)
+        if (!dialogShown) {
+            // Mostrar el diálogo personalizado al iniciar la pantalla
+            showDialog(this)
         }
 
     }
@@ -111,6 +134,29 @@ class MostrarZonaRecycler : AppCompatActivity() {
             }
         }
         return ""
+    }
+
+    // Función para mostrar el diálogo personalizado
+    private fun showDialog(context: Context) {
+        val dialog = Dialog(context)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_pref_restaurante_bar_heladeria)
+
+        // Configurar los elementos del diálogo
+        val acceptButton = dialog.findViewById<Button>(R.id.btnAceptarDialog)
+        acceptButton.setOnClickListener {
+            // Guardar en las preferencias compartidas que el diálogo se ha mostrado
+            val editor = sharedPreferences.edit()
+            editor.putBoolean("dialog_shown", true)
+            editor.apply()
+
+            dialog.dismiss()
+        }
+
+        dialog.setCanceledOnTouchOutside(false)
+
+        dialog.show()
     }
 
 }

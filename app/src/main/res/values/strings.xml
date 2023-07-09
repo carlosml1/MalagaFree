@@ -26,4 +26,9 @@
     <string name="Crear_un_Ticket">Crear un Ticket</string>
     <string name="noticias">Noticias</string>
     <string name="titulo_ticket">En esta pantalla vas a poder crear un ticket para poder añadir productos a la base de dato.\n\n Solo necesitas rellenar los campos que se solicitan abajo</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="text_dialog_pref_bar_rest_hel">En esta pantalla se mostraran la información de cada Bar, Restaurante o Heladería.\n Se pueden diferenciar en 3 colores:</string>
+    <string name="buscar_por_zona_de">Buscar por zona de Málaga</string>
+    <string name="ver_todo">Ver todos de Málaga</string>
+    <string name="restaurantes_bares_de_m_laga">Restaurantes, Bares y Heladerias de Málaga</string>
 </resources>

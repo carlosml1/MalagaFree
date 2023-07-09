@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import com.example.malagafree.Componentes.ModoInversivo
-import com.example.malagafree.Mapa.MenuMapa
 import com.example.malagafree.R
 
 class MenuTicketsYNoticias : AppCompatActivity() {

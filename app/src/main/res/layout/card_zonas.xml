@@ -15,8 +15,7 @@
         app:cardCornerRadius="1dp"
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true"
-        android:clickable="true"
-        android:backgroundTint="@color/azul_marino">
+        android:clickable="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -160,7 +159,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_icono_telefono"
-            android:backgroundTint="@color/azul_fuerte"
+            android:backgroundTint="@color/azul"
             android:layout_margin="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtUbicacion"
@@ -172,7 +171,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_icono_ubicacion"
-            android:backgroundTint="@color/azul_fuerte"
+            android:backgroundTint="@color/azul"
             android:layout_margin="10dp"
             app:layout_constraintBottom_toTopOf="@+id/mostarImagen"
             app:layout_constraintEnd_toStartOf="@+id/btnCarta"
@@ -186,7 +185,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_icono_menu"
             android:layout_margin="10dp"
-            android:backgroundTint="@color/azul_fuerte"
+            android:backgroundTint="@color/azul"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtUbicacion"
             app:layout_constraintStart_toEndOf="@+id/btnUbicacion"
