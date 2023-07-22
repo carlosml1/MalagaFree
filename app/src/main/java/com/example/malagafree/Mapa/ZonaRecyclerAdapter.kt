@@ -66,14 +66,26 @@ class ZonaRecyclerAdapter(var zonas: MutableList<Zona>) :
         private val btnUbicacion: ImageButton = itemView.findViewById(R.id.btnUbicacion)
         private val btnCarta: ImageButton = itemView.findViewById(R.id.btnCarta)
         private val btnLlamar: ImageButton = itemView.findViewById(R.id.btnNumero)
+        private val txtNombre: TextView = itemView.findViewById(R.id.txtNombre)
+        private val txtNumero: TextView = itemView.findViewById(R.id.txtNumero)
+        private val txtUbicacion: TextView = itemView.findViewById(R.id.txtUbicacion)
+        private val txtHorario: TextView = itemView.findViewById(R.id.txtHorario)
+        private val txtAccesible: TextView = itemView.findViewById(R.id.txtAccesibilidad)
+        private val imagen: ImageView = itemView.findViewById(R.id.imagen)
+        private lateinit var sharedPreferences: SharedPreferences
 
-        @SuppressLint("DiscouragedApi", "ClickableViewAccessibility")
+        @SuppressLint("DiscouragedApi", "ClickableViewAccessibility",
+            "UseCompatLoadingForDrawables"
+        )
         fun bind(zona: Zona) {
             mostrarNombre.text = zona.nombre
             mostrarNumero.text = zona.numero.toString()
             mostrarHorario.text = zona.horario
             mostrarUbicacion.text = zona.ubicacion
             mostrarAcesible.text = zona.accesible
+
+            val sharedPreferences = itemView.context.getSharedPreferences("PreferenciaDaltonico", Context.MODE_PRIVATE)
+            val opcionSeleccionada = sharedPreferences.getString("opcionSeleccionada", "")
 
             btnUbicacion.setOnClickListener {
                 val coordenadas = "${zona.latitud}, ${zona.longitud}"
@@ -154,14 +166,194 @@ class ZonaRecyclerAdapter(var zonas: MutableList<Zona>) :
 
             }
 
-            when (zona.establecimiento){
-                "Bar" ->  cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.verde_claro))
-                "Restaurante" ->  cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.beige))
-                "Heladeria" ->  cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.morado_claro))
+            when (opcionSeleccionada){
+                " Normal" ->
+                    when (zona.establecimiento){
+                        "Bar" ->  cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.verde_claro))
+                        "Restaurante" ->  cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.beige))
+                        "Heladeria" ->  cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.morado_claro))
+                    }
+                " Protanopia" ->
+                    when (zona.establecimiento){
+                        "Bar" ->  {
+                            cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.rojo))
+                            mostrarAcesible.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarHorario.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarNombre.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarNumero.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarUbicacion.setTextColor(itemView.context.getColor(R.color.white))
+                            txtNombre.setTextColor(itemView.context.getColor(R.color.white))
+                            txtAccesible.setTextColor(itemView.context.getColor(R.color.white))
+                            txtHorario.setTextColor(itemView.context.getColor(R.color.white))
+                            txtNumero.setTextColor(itemView.context.getColor(R.color.white))
+                            txtUbicacion.setTextColor(itemView.context.getColor(R.color.white))
+                        }
+                        "Restaurante" -> {
+                            cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.beige))
+                            mostrarAcesible.setTextColor(itemView.context.getColor(R.color.black))
+                            mostrarHorario.setTextColor(itemView.context.getColor(R.color.black))
+                            mostrarNombre.setTextColor(itemView.context.getColor(R.color.black))
+                            mostrarNumero.setTextColor(itemView.context.getColor(R.color.black))
+                            mostrarUbicacion.setTextColor(itemView.context.getColor(R.color.black))
+                            txtNombre.setTextColor(itemView.context.getColor(R.color.black))
+                            txtAccesible.setTextColor(itemView.context.getColor(R.color.black))
+                            txtHorario.setTextColor(itemView.context.getColor(R.color.black))
+                            txtNumero.setTextColor(itemView.context.getColor(R.color.black))
+                            txtUbicacion.setTextColor(itemView.context.getColor(R.color.black))
+                        }
+                        "Heladeria" ->  {
+                            cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.azul_fuerte))
+                            mostrarAcesible.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarHorario.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarNombre.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarNumero.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarUbicacion.setTextColor(itemView.context.getColor(R.color.white))
+                            txtNombre.setTextColor(itemView.context.getColor(R.color.white))
+                            txtAccesible.setTextColor(itemView.context.getColor(R.color.white))
+                            txtHorario.setTextColor(itemView.context.getColor(R.color.white))
+                            txtNumero.setTextColor(itemView.context.getColor(R.color.white))
+                            txtUbicacion.setTextColor(itemView.context.getColor(R.color.white))
+                        }
+                    }
+                " Deuteranopia" ->
+                    when (zona.establecimiento){
+                        "Bar" -> {
+                            cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.rojo))
+                            mostrarAcesible.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarHorario.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarNombre.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarNumero.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarUbicacion.setTextColor(itemView.context.getColor(R.color.white))
+                            txtNombre.setTextColor(itemView.context.getColor(R.color.white))
+                            txtAccesible.setTextColor(itemView.context.getColor(R.color.white))
+                            txtHorario.setTextColor(itemView.context.getColor(R.color.white))
+                            txtNumero.setTextColor(itemView.context.getColor(R.color.white))
+                            txtUbicacion.setTextColor(itemView.context.getColor(R.color.white))
+                        }
+                        "Restaurante" ->  {
+                            cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.beige))
+                            mostrarAcesible.setTextColor(itemView.context.getColor(R.color.black))
+                            mostrarHorario.setTextColor(itemView.context.getColor(R.color.black))
+                            mostrarNombre.setTextColor(itemView.context.getColor(R.color.black))
+                            mostrarNumero.setTextColor(itemView.context.getColor(R.color.black))
+                            mostrarUbicacion.setTextColor(itemView.context.getColor(R.color.black))
+                            txtNombre.setTextColor(itemView.context.getColor(R.color.black))
+                            txtAccesible.setTextColor(itemView.context.getColor(R.color.black))
+                            txtHorario.setTextColor(itemView.context.getColor(R.color.black))
+                            txtNumero.setTextColor(itemView.context.getColor(R.color.black))
+                            txtUbicacion.setTextColor(itemView.context.getColor(R.color.black))
+                        }
+                        "Heladeria" ->  {
+                            cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.azul_fuerte))
+                            mostrarAcesible.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarHorario.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarNombre.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarNumero.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarUbicacion.setTextColor(itemView.context.getColor(R.color.white))
+                            txtNombre.setTextColor(itemView.context.getColor(R.color.white))
+                            txtAccesible.setTextColor(itemView.context.getColor(R.color.white))
+                            txtHorario.setTextColor(itemView.context.getColor(R.color.white))
+                            txtNumero.setTextColor(itemView.context.getColor(R.color.white))
+                            txtUbicacion.setTextColor(itemView.context.getColor(R.color.white))
+                        }
+                    }
+                " Tritanopia" ->
+                    when (zona.establecimiento){
+                        "Bar" ->  {
+                            cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.rojo))
+                            mostrarAcesible.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarHorario.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarNombre.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarNumero.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarUbicacion.setTextColor(itemView.context.getColor(R.color.white))
+                            txtNombre.setTextColor(itemView.context.getColor(R.color.white))
+                            txtAccesible.setTextColor(itemView.context.getColor(R.color.white))
+                            txtHorario.setTextColor(itemView.context.getColor(R.color.white))
+                            txtNumero.setTextColor(itemView.context.getColor(R.color.white))
+                            txtUbicacion.setTextColor(itemView.context.getColor(R.color.white))
+                        }
+                        "Restaurante" ->  {
+                            cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.beige))
+                            mostrarAcesible.setTextColor(itemView.context.getColor(R.color.black))
+                            mostrarHorario.setTextColor(itemView.context.getColor(R.color.black))
+                            mostrarNombre.setTextColor(itemView.context.getColor(R.color.black))
+                            mostrarNumero.setTextColor(itemView.context.getColor(R.color.black))
+                            mostrarUbicacion.setTextColor(itemView.context.getColor(R.color.black))
+                            txtNombre.setTextColor(itemView.context.getColor(R.color.black))
+                            txtAccesible.setTextColor(itemView.context.getColor(R.color.black))
+                            txtHorario.setTextColor(itemView.context.getColor(R.color.black))
+                            txtNumero.setTextColor(itemView.context.getColor(R.color.black))
+                            txtUbicacion.setTextColor(itemView.context.getColor(R.color.black))
+                        }
+                        "Heladeria" ->  {
+                            cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.azul_fuerte))
+                            mostrarAcesible.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarHorario.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarNombre.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarNumero.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarUbicacion.setTextColor(itemView.context.getColor(R.color.white))
+                            txtNombre.setTextColor(itemView.context.getColor(R.color.white))
+                            txtAccesible.setTextColor(itemView.context.getColor(R.color.white))
+                            txtHorario.setTextColor(itemView.context.getColor(R.color.white))
+                            txtNumero.setTextColor(itemView.context.getColor(R.color.white))
+                            txtUbicacion.setTextColor(itemView.context.getColor(R.color.white))
+                        }
+                    }
+                " Acromatía" ->
+                    when (zona.establecimiento) {
+                        "Bar" -> {
+                            cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.black))
+                            imagen.visibility = View.VISIBLE
+                            imagen.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_icono_bar))
+                            mostrarAcesible.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarHorario.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarNombre.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarNumero.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarUbicacion.setTextColor(itemView.context.getColor(R.color.white))
+                            txtNombre.setTextColor(itemView.context.getColor(R.color.white))
+                            txtAccesible.setTextColor(itemView.context.getColor(R.color.white))
+                            txtHorario.setTextColor(itemView.context.getColor(R.color.white))
+                            txtNumero.setTextColor(itemView.context.getColor(R.color.white))
+                            txtUbicacion.setTextColor(itemView.context.getColor(R.color.white))
+                        }
+                        "Restaurante" -> {
+                            cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.black))
+                            imagen.visibility = View.VISIBLE
+                            imagen.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_icono_restaurante))
+                            mostrarAcesible.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarHorario.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarNombre.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarNumero.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarUbicacion.setTextColor(itemView.context.getColor(R.color.white))
+                            txtNombre.setTextColor(itemView.context.getColor(R.color.white))
+                            txtAccesible.setTextColor(itemView.context.getColor(R.color.white))
+                            txtHorario.setTextColor(itemView.context.getColor(R.color.white))
+                            txtNumero.setTextColor(itemView.context.getColor(R.color.white))
+                            txtUbicacion.setTextColor(itemView.context.getColor(R.color.white))
+                        }
+                        "Heladeria" -> {
+                            cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.black))
+                            imagen.visibility = View.VISIBLE
+                            imagen.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_icono_helado))
+                            mostrarAcesible.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarHorario.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarNombre.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarNumero.setTextColor(itemView.context.getColor(R.color.white))
+                            mostrarUbicacion.setTextColor(itemView.context.getColor(R.color.white))
+                            txtNombre.setTextColor(itemView.context.getColor(R.color.white))
+                            txtAccesible.setTextColor(itemView.context.getColor(R.color.white))
+                            txtHorario.setTextColor(itemView.context.getColor(R.color.white))
+                            txtNumero.setTextColor(itemView.context.getColor(R.color.white))
+                            txtUbicacion.setTextColor(itemView.context.getColor(R.color.white))
+                        }
+                    }
+                else ->
+                    when (zona.establecimiento){
+                        "Bar" ->  cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.verde_claro))
+                        "Restaurante" ->  cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.beige))
+                        "Heladeria" ->  cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.morado_claro))
+                    }
             }
-
-
-
         }
 
         // Función para convertir dp a píxeles

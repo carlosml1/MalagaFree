@@ -7,6 +7,21 @@
     tools:context=".MenuPrincipal"
     android:background="@color/white">
 
+    <TextView
+        android:id="@+id/spinnerDaltonico"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_icono_ojo"
+        android:text=" prueba"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:layout_margin="5dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"

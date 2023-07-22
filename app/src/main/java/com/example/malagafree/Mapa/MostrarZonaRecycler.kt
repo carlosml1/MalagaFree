@@ -141,11 +141,24 @@ class MostrarZonaRecycler : AppCompatActivity() {
         val dialog = Dialog(context)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
-        dialog.setContentView(R.layout.dialog_pref_restaurante_bar_heladeria)
+
+        val preferences = getSharedPreferences("PreferenciaDaltonico", Context.MODE_PRIVATE)
+        val opcionSeleccionada = preferences.getString("opcionSeleccionada", "")
+        val layoutResId = when (opcionSeleccionada) {
+            " Normal" -> R.layout.dialog_pref_restaurante_bar_heladeria
+            " Protanopia" -> R.layout.dialog_pref_restaurante_bar_heladeria_protanopia // Replace with the layout resource ID for Protanopia
+            " Deuteranopia" -> R.layout.dialog_pref_restaurante_bar_heladeria_deuteranopia // Replace with the layout resource ID for Deuteranopia
+            " Tritanopia" -> R.layout.dialog_pref_restaurante_bar_heladeria_tritanopia
+            " Acromatía" -> R.layout.dialog_pref_restaurante_bar_heladeria_acromatia // Replace with the layout resource ID for Acromatía
+            else -> R.layout.dialog_pref_restaurante_bar_heladeria// Replace with the default layout resource ID
+        }
+
+
+        dialog.setContentView(layoutResId)
 
         // Configurar los elementos del diálogo
         val acceptButton = dialog.findViewById<Button>(R.id.btnAceptarDialog)
-        acceptButton.setOnClickListener {
+        acceptButton?.setOnClickListener {
             // Guardar en las preferencias compartidas que el diálogo se ha mostrado
             val editor = sharedPreferences.edit()
             editor.putBoolean("dialog_shown", true)

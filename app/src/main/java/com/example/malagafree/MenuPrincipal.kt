@@ -1,26 +1,29 @@
 package com.example.malagafree
 
-import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Geocoder
-import android.location.LocationManager
+import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.Toast
+import android.widget.Spinner
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.example.malagafree.Componentes.ModoInversivo
 import com.example.malagafree.Mapa.ZonasMenuMapa
 import com.example.malagafree.Productos.BuscarProductos
 import com.example.malagafree.Productos.MenuProductos
 import com.example.malagafree.Productos.RecyclerProductos
-import com.example.malagafree.TicketsYNoticias.MenuTicketsYNoticias
 import com.example.malagafree.TicketsYNoticias.Ticket
+import java.lang.StringBuilder
 import java.util.*
+
 
 class MenuPrincipal : AppCompatActivity() {
     // Identificador para solicitar el permiso de ubicación
@@ -32,6 +35,7 @@ class MenuPrincipal : AppCompatActivity() {
 
         ModoInversivo.setImmersiveMode(this)
 
+        val spinnerDalt: TextView = findViewById(R.id.spinnerDaltonico)
         val btnIrMapa: Button = findViewById(R.id.btnMapa)
         val btnIrProducto: Button = findViewById(R.id.btnProductos)
         val btnIrResNoti: Button = findViewById(R.id.btnReseNoti)
@@ -67,7 +71,48 @@ class MenuPrincipal : AppCompatActivity() {
             val intent = Intent(this, BuscarProductos::class.java)
             startActivity(intent)
         }
+
+
+        val opcionesDaltonico = arrayListOf(" Normal", " Protanopia", " Deuteranopia", " Tritanopia", " Acromatía")
+
+        val preferences = getSharedPreferences("PreferenciaDaltonico", Context.MODE_PRIVATE)
+        val opcionSeleccionada = preferences.getString("opcionSeleccionada", "")
+
+        if (opcionSeleccionada.isNullOrEmpty()) {
+            spinnerDalt.text = " Normal"
+        } else {
+            spinnerDalt.text = opcionSeleccionada
+        }
+
+        spinnerDalt.setOnClickListener {
+            val builder = AlertDialog.Builder(this, R.style.AlertDialogStyle) // Aplicar el estilo personalizado
+            builder.setTitle("Selecciona una opción")
+            builder.setItems(opcionesDaltonico.toTypedArray()) { _, which ->
+                val selectedOption = opcionesDaltonico[which]
+                spinnerDalt.text = selectedOption
+
+                val editor: SharedPreferences.Editor = preferences.edit()
+                editor.putString("opcionSeleccionada", selectedOption)
+                editor.apply()
+            }
+            builder.setNegativeButton("Cancelar", null)
+
+            val dialog = builder.create()
+            dialog.setCanceledOnTouchOutside(false) // No se puede hacer clic fuera del diálogo
+            dialog.show()
+        }
+
+
+
+
+
+
+
     }
+
+
+
+
 /*
     // Método para solicitar el permiso de ubicación en tiempo de ejecución
     private fun requestLocationPermission() {
