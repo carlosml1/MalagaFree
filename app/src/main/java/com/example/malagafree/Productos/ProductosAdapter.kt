@@ -1,10 +1,15 @@
 package com.example.malagafree.Productos
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.Context
+import android.content.SharedPreferences
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.malagafree.R
 
@@ -42,10 +47,21 @@ class ProductosAdapter(private var productosList: List<String>) : RecyclerView.A
 
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val lytProducto: ConstraintLayout = itemView.findViewById(R.id.lytItemProducto)
         private val productoTextView: TextView = itemView.findViewById(R.id.productoTextView)
+
 
         @SuppressLint("SuspiciousIndentation")
         fun bind(producto: String) {
+            val sharedPreferences = itemView.context.getSharedPreferences("PreferenciaDaltonico", Context.MODE_PRIVATE)
+            val opcionSeleccionada = sharedPreferences.getString("opcionSeleccionada", "")
+            if(opcionSeleccionada!!.contains("Acromatía")){
+                lytProducto.setBackgroundColor(itemView.resources.getColor(R.color.negro_claro))
+                productoTextView.setTextColor(itemView.resources.getColor(R.color.white))
+            }else {
+                lytProducto.setBackgroundColor(itemView.resources.getColor(R.color.azul_claro))
+                productoTextView.setTextColor(itemView.resources.getColor(R.color.black))
+            }
             productoTextView.text = producto
 
             itemView.setOnClickListener {

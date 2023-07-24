@@ -1,6 +1,7 @@
 package com.example.malagafree.Productos
 
 import android.app.AlertDialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
@@ -100,8 +101,15 @@ class RecyclerProductos : AppCompatActivity() {
         val dialog = builder.create()
 
         dialog.setOnShowListener {
-            dialog.window?.setBackgroundDrawableResource(R.color.azul)
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(Color.BLACK)
+            val preferences = getSharedPreferences("PreferenciaDaltonico", Context.MODE_PRIVATE)
+            val opcionSeleccionada = preferences.getString("opcionSeleccionada", "")
+            if(opcionSeleccionada!!.contains("Acromatía")){
+                dialog.window?.setBackgroundDrawableResource(R.color.negro_claro)
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(Color.WHITE)
+            }else {
+                dialog.window?.setBackgroundDrawableResource(R.color.azul)
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(Color.BLACK)
+            }
         }
 
         dialog.show()

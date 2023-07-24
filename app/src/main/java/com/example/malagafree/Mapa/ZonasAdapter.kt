@@ -1,5 +1,6 @@
 package com.example.malagafree.Mapa
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -11,13 +12,20 @@ import com.example.malagafree.R
 class ZonasAdapter(private val zonas: Array<String>) : RecyclerView.Adapter<ZonasAdapter.ZonaViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ZonaViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.card_recycler, parent, false)
+        val inflater = LayoutInflater.from(parent.context)
+        val preferences = parent.context.getSharedPreferences("PreferenciaDaltonico", Context.MODE_PRIVATE)
+        val view = when (preferences.getString("opcionSeleccionada", "")) {
+            " Acromatía" -> inflater.inflate(R.layout.card_recycler_acromatia, parent, false)
+            else -> inflater.inflate(R.layout.card_recycler, parent, false)
+        }
+
         return ZonaViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ZonaViewHolder, position: Int) {
         val zona = zonas[position]
         holder.bind(zona)
+
 
         holder.textView.setOnClickListener {
 

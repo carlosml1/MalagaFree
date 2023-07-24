@@ -38,6 +38,16 @@ class MostrarZonaRecycler : AppCompatActivity() {
 
         val nombreZona = intent.getStringExtra("nombreZona")
 
+        val preferences = getSharedPreferences("PreferenciaDaltonico", Context.MODE_PRIVATE)
+        val opcionSeleccionada = preferences.getString("opcionSeleccionada", "")
+
+        if(opcionSeleccionada!!.contains("Acromatía")){
+            textTitulo.setTextColor(getColor(R.color.negro_claro))
+            btnInfoZona.setBackgroundColor(getColor(R.color.negro_claro))
+        }else{
+            textTitulo.setTextColor(getColor(R.color.azul))
+            btnInfoZona.setBackgroundColor(getColor(R.color.azul))
+        }
 
         textTitulo.text = ponerTituloZona(nombreZona.toString())
 

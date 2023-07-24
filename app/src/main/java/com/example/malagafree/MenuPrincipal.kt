@@ -1,34 +1,28 @@
 package com.example.malagafree
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Color
 import android.os.Bundle
-import android.view.MotionEvent
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.malagafree.Componentes.ModoInversivo
 import com.example.malagafree.Mapa.ZonasMenuMapa
 import com.example.malagafree.Productos.BuscarProductos
 import com.example.malagafree.Productos.MenuProductos
 import com.example.malagafree.Productos.RecyclerProductos
 import com.example.malagafree.TicketsYNoticias.Ticket
-import java.lang.StringBuilder
 import java.util.*
 
 
 class MenuPrincipal : AppCompatActivity() {
-    // Identificador para solicitar el permiso de ubicación
-    private val LOCATION_PERMISSION_REQUEST_CODE = 123
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu_principal)
@@ -41,6 +35,9 @@ class MenuPrincipal : AppCompatActivity() {
         val btnIrResNoti: Button = findViewById(R.id.btnReseNoti)
         val btnRapidoBus: ImageView = findViewById(R.id.btnRapidoBuscar)
         val btnRapidoScn: ImageView = findViewById(R.id.btnRapidoScanner)
+        val lytBuscar: ConstraintLayout = findViewById(R.id.lytBtnBuscar)
+        val lytScanner: ConstraintLayout = findViewById(R.id.lytBtnScanner)
+        val img: ImageView = findViewById(R.id.imageView)
 
         // Solicitar permiso de ubicación al hacer clic en el botón del mapa
         btnIrMapa.setOnClickListener {
@@ -90,10 +87,10 @@ class MenuPrincipal : AppCompatActivity() {
             builder.setItems(opcionesDaltonico.toTypedArray()) { _, which ->
                 val selectedOption = opcionesDaltonico[which]
                 spinnerDalt.text = selectedOption
-
                 val editor: SharedPreferences.Editor = preferences.edit()
                 editor.putString("opcionSeleccionada", selectedOption)
                 editor.apply()
+                recreate()
             }
             builder.setNegativeButton("Cancelar", null)
 
@@ -102,7 +99,30 @@ class MenuPrincipal : AppCompatActivity() {
             dialog.show()
         }
 
-
+        when (opcionSeleccionada) {
+            " Acromatía" -> {
+                btnIrMapa.setBackgroundColor(getColor(R.color.negro_claro))
+                btnIrProducto.setBackgroundColor(getColor(R.color.negro_claro))
+                btnIrResNoti.setBackgroundColor(getColor(R.color.negro_claro))
+                lytBuscar.setBackgroundColor(getColor(R.color.black))
+                lytScanner.setBackgroundColor(getColor(R.color.black))
+                img.setImageDrawable(getDrawable(R.drawable.iconoappnegroblanco))
+                btnRapidoBus.setImageDrawable(getDrawable(R.drawable.ic_icono_lupa_blanco))
+                btnRapidoBus.setBackgroundColor(getColor(R.color.negro_claro))
+                btnRapidoScn.setImageDrawable(getDrawable(R.drawable.barcode_blanco))
+            }
+            else -> {
+                btnIrMapa.setBackgroundColor(getColor(R.color.azul))
+                btnIrProducto.setBackgroundColor(getColor(R.color.azul))
+                btnIrResNoti.setBackgroundColor(getColor(R.color.azul))
+                lytBuscar.setBackgroundColor(getColor(R.color.azul))
+                lytScanner.setBackgroundColor(getColor(R.color.azul))
+                img.setImageDrawable(getDrawable(R.drawable.iconoapp))
+                btnRapidoBus.setBackgroundColor(getColor(R.color.white))
+                btnRapidoBus.setImageDrawable(getDrawable(R.drawable.ic_icono_lupa))
+                btnRapidoScn.setImageDrawable(getDrawable(R.drawable.barcode))
+            }
+        }
 
 
 

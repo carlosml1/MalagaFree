@@ -1,10 +1,12 @@
 package com.example.malagafree.TicketsYNoticias
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.malagafree.Componentes.ModoInversivo
@@ -22,6 +24,7 @@ class Ticket : AppCompatActivity() {
     private lateinit var nombreEmpresaEditText: TextInputEditText
     private lateinit var codigoIdentificadorEditText: TextInputEditText
     private lateinit var btnInfoIdentificador: ImageButton
+    private lateinit var textTicket: TextView
 
     private lateinit var firebaseFirestore: FirebaseFirestore
     private lateinit var firebaseStorage: FirebaseStorage
@@ -32,6 +35,7 @@ class Ticket : AppCompatActivity() {
 
         ModoInversivo.setImmersiveMode(this)
 
+        textTicket = findViewById(R.id.textViewTicket)
         nombreProductoEditText = findViewById(R.id.textNombreProducto_editText)
         nombreEmpresaEditText = findViewById(R.id.textNombreEmpresa_editText)
         codigoIdentificadorEditText = findViewById(R.id.textCodigoIdentidicador_editText)
@@ -46,6 +50,7 @@ class Ticket : AppCompatActivity() {
             imageView.setImageResource(R.drawable.codigodebarra)
             builder.setView(imageView)
 
+
             // Configurar el botón "Aceptar" del diálogo
             builder.setPositiveButton("Aceptar") { dialog, _ ->
                 dialog.dismiss() // Cerrar el diálogo al pulsar el botón "Aceptar"
@@ -56,12 +61,29 @@ class Ticket : AppCompatActivity() {
         }
 
 
-        val botonLogin: Button = findViewById(R.id.botonLogin)
-        botonLogin.setOnClickListener {
+        val botonMandar: Button = findViewById(R.id.botonMandar)
+        botonMandar.setOnClickListener {
             if (camposRellenos()) {
                 guardarInformacion()
             } else {
                 Toast.makeText(this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        val preferences = getSharedPreferences("PreferenciaDaltonico", Context.MODE_PRIVATE)
+
+        when (preferences.getString("opcionSeleccionada", "")) {
+            " Acromatía" -> {
+                textTicket.setTextColor(getColor(R.color.negro_claro))
+                botonMandar.setBackgroundColor(getColor(R.color.negro_claro))
+                botonMandar.setTextColor(getColor(R.color.white))
+                btnInfoIdentificador.setBackgroundColor(getColor(R.color.negro_claro))
+            }
+            else -> {
+                botonMandar.setBackgroundColor(getColor(R.color.azul_marino))
+                botonMandar.setTextColor(getColor(R.color.black))
+                textTicket.setTextColor(getColor(R.color.azul))
+                btnInfoIdentificador.setBackgroundColor(getColor(R.color.azul_fuerte))
             }
         }
 

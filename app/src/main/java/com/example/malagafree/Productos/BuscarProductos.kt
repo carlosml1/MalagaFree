@@ -3,6 +3,7 @@ package com.example.malagafree.Productos
 import android.content.Intent
 import android.os.Bundle
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.Typeface
@@ -33,6 +34,17 @@ class BuscarProductos : AppCompatActivity() {
         binding = ActivityBuscarProductosBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.btnScanner.setOnClickListener { initScanner() }
+
+        val preferences = getSharedPreferences("PreferenciaDaltonico", Context.MODE_PRIVATE)
+
+        when (preferences.getString("opcionSeleccionada", "")) {
+            " Acromatía" -> {
+                binding.btnScanner.setBackgroundColor(getColor(R.color.negro_claro))
+            }
+            else -> {
+                binding.btnScanner.setBackgroundColor(getColor(R.color.azul))
+            }
+        }
     }
 
     private fun initScanner() {
@@ -67,8 +79,17 @@ class BuscarProductos : AppCompatActivity() {
         val dialog = builder.create()
 
         dialog.setOnShowListener {
-            dialog.window?.setBackgroundDrawableResource(R.color.azul)
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(Color.BLACK)
+            val preferences = getSharedPreferences("PreferenciaDaltonico", Context.MODE_PRIVATE)
+            when (preferences.getString("opcionSeleccionada", "")) {
+                " Acromatía" -> {
+                    dialog.window?.setBackgroundDrawableResource(R.color.negro_claro)
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(Color.WHITE)
+                }
+                else -> {
+                    dialog.window?.setBackgroundDrawableResource(R.color.azul)
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(Color.BLACK)
+                }
+            }
         }
 
         dialog.show()
@@ -99,9 +120,19 @@ class BuscarProductos : AppCompatActivity() {
         val dialog = builder.create()
 
         dialog.setOnShowListener {
-            dialog.window?.setBackgroundDrawableResource(R.color.azul)
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(Color.BLACK)
-            dialog.getButton(AlertDialog.BUTTON_NEGATIVE)?.setTextColor(Color.BLACK)
+            val preferences = getSharedPreferences("PreferenciaDaltonico", Context.MODE_PRIVATE)
+            when (preferences.getString("opcionSeleccionada", "")) {
+                " Acromatía" -> {
+                    dialog.window?.setBackgroundDrawableResource(R.color.negro_claro)
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(Color.WHITE)
+                    dialog.getButton(AlertDialog.BUTTON_NEGATIVE)?.setTextColor(Color.WHITE)
+                }
+                else -> {
+                    dialog.window?.setBackgroundDrawableResource(R.color.azul)
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(Color.BLACK)
+                    dialog.getButton(AlertDialog.BUTTON_NEGATIVE)?.setTextColor(Color.BLACK)
+                }
+            }
         }
 
         dialog.show()
