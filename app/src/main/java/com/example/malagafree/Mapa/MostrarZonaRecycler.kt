@@ -3,6 +3,7 @@ package com.example.malagafree.Mapa
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,9 +11,12 @@ import android.view.Window
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.malagafree.Componentes.ModoInversivo
+import com.example.malagafree.MenuPrincipal
+import com.example.malagafree.Productos.RecyclerProductos
 import com.example.malagafree.R
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
@@ -33,21 +37,55 @@ class MostrarZonaRecycler : AppCompatActivity() {
 
         ModoInversivo.setImmersiveMode(this)
 
+        val lytBotonesRapidos: ConstraintLayout = findViewById(R.id.lytBotones)
+        val btnRapidoHome: ImageButton = findViewById(R.id.btnRapidoPrincipal)
+        val btnRapidoProducto: ImageButton = findViewById(R.id.btnRapidoProducto)
+        val btnRapidoMapa: ImageButton = findViewById(R.id.btnRapidoMapa)
+
+        val preferences = getSharedPreferences("PreferenciaDaltonico", Context.MODE_PRIVATE)
+        val opcionSeleccionada = preferences.getString("opcionSeleccionada", "")
+        if(opcionSeleccionada!!.contains("Acromatía")){
+            lytBotonesRapidos.setBackgroundColor(getColor(R.color.negro_claro))
+            btnRapidoProducto.setBackgroundColor(getColor(R.color.white))
+            btnRapidoProducto.setImageDrawable(resources.getDrawable(R.drawable.ic_icono_producto_negro))
+            btnRapidoHome.setBackgroundColor(getColor(R.color.white))
+            btnRapidoHome.setImageDrawable(resources.getDrawable(R.drawable.ic_icono_inicio_negro))
+            btnRapidoMapa.setBackgroundColor(getColor(R.color.white))
+            btnRapidoMapa.setImageDrawable(resources.getDrawable(R.drawable.ic_icono_mapa_negro))
+            textTitulo.setTextColor(getColor(R.color.negro_claro))
+            btnInfoZona.setBackgroundColor(getColor(R.color.negro_claro))
+        }else {
+            lytBotonesRapidos.setBackgroundColor(getColor(R.color.azul_claro))
+            btnRapidoProducto.setBackgroundColor(getColor(R.color.azul_fuerte))
+            btnRapidoProducto.setImageDrawable(resources.getDrawable(R.drawable.ic_icono_producto))
+            btnRapidoHome.setBackgroundColor(getColor(R.color.azul_fuerte))
+            btnRapidoHome.setImageDrawable(resources.getDrawable(R.drawable.ic_icono_inicio))
+            btnRapidoMapa.setBackgroundColor(getColor(R.color.azul_fuerte))
+            btnRapidoMapa.setImageDrawable(resources.getDrawable(R.drawable.ic_icono_mapa))
+            textTitulo.setTextColor(getColor(R.color.azul))
+            btnInfoZona.setBackgroundColor(getColor(R.color.azul))
+        }
+
+        btnRapidoHome.setOnClickListener {
+            val intent = Intent (this, MenuPrincipal::class.java)
+            finish()
+            this.startActivity(intent)
+        }
+
+        btnRapidoProducto.setOnClickListener {
+            val intent = Intent (this, RecyclerProductos::class.java)
+            finish()
+            this.startActivity(intent)
+        }
+
+        btnRapidoMapa.setOnClickListener {
+
+        }
+
         FirebaseApp.initializeApp(this)
         db = FirebaseFirestore.getInstance()
 
         val nombreZona = intent.getStringExtra("nombreZona")
-
-        val preferences = getSharedPreferences("PreferenciaDaltonico", Context.MODE_PRIVATE)
-        val opcionSeleccionada = preferences.getString("opcionSeleccionada", "")
-
-        if(opcionSeleccionada!!.contains("Acromatía")){
-            textTitulo.setTextColor(getColor(R.color.negro_claro))
-            btnInfoZona.setBackgroundColor(getColor(R.color.negro_claro))
-        }else{
-            textTitulo.setTextColor(getColor(R.color.azul))
-            btnInfoZona.setBackgroundColor(getColor(R.color.azul))
-        }
 
         textTitulo.text = ponerTituloZona(nombreZona.toString())
 
