@@ -18,10 +18,10 @@ import android.widget.ImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.carlosml.malagafree.R
 import com.example.malagafree.Componentes.ModoInversivo
 import com.example.malagafree.Mapa.ZonasMenuMapa
 import com.example.malagafree.MenuPrincipal
-import com.example.malagafree.R
 import com.google.firebase.firestore.FirebaseFirestore
 
 class RecyclerProductos : AppCompatActivity() {

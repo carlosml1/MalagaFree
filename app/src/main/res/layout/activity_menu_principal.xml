@@ -7,18 +7,17 @@
     tools:context=".MenuPrincipal"
     android:background="@color/white">
 
-    <TextView
-        android:id="@+id/spinnerDaltonico"
+    <ImageButton
+        android:id="@+id/menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_icono_ojo"
-        android:text=" prueba"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="15sp"
+        android:padding="5dp"
         android:layout_margin="5dp"
+        android:src="@drawable/ic_icono_menu_desp"
+        android:layout_centerInParent="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         />
 
 

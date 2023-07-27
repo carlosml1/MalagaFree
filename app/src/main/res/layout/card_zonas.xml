@@ -30,7 +30,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="5dp"
-            android:visibility="gone"
             android:src="@drawable/ic_icono_bar"
             />
 

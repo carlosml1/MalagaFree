@@ -15,10 +15,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.carlosml.malagafree.R
+import com.carlosml.malagafree.databinding.ActivityBuscarProductosBinding
 import com.example.malagafree.Componentes.ModoInversivo
-import com.example.malagafree.R
 import com.example.malagafree.TicketsYNoticias.Ticket
-import com.example.malagafree.databinding.ActivityBuscarProductosBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentResult

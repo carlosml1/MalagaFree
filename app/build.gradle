@@ -5,15 +5,15 @@ plugins {
 }
 
 android {
-    namespace 'com.example.malagafree'
+    namespace 'com.carlosml.malagafree'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.malagafree"
+        applicationId "com.carlosml.malagafree"
         minSdk 26
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -53,6 +53,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.bumptech.glide:glide:4.13.0'
     implementation 'androidx.transition:transition:1.4.1'
+    implementation 'com.android.billingclient:billing:6.0.1'
 
 
 

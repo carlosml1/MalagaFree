@@ -14,10 +14,11 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.carlosml.malagafree.R
 import com.example.malagafree.Componentes.ModoInversivo
 import com.example.malagafree.MenuPrincipal
 import com.example.malagafree.Productos.RecyclerProductos
-import com.example.malagafree.R
+
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 

@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.example.malagafree.R
+import com.carlosml.malagafree.R
 
 class ProductosAdapter(private var productosList: List<String>) : RecyclerView.Adapter<ProductosAdapter.ViewHolder>() {
 

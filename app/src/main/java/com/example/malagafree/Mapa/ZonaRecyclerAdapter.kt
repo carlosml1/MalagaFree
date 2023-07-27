@@ -31,9 +31,9 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
-import com.example.malagafree.R
 import com.google.firebase.ktx.Firebase
 import com.bumptech.glide.request.transition.Transition
+import com.carlosml.malagafree.R
 import com.google.firebase.storage.ktx.storage
 import java.util.Locale
 
@@ -169,9 +169,18 @@ class ZonaRecyclerAdapter(var zonas: MutableList<Zona>) :
             when (opcionSeleccionada){
                 " Normal" ->{
                     when (zona.establecimiento){
-                        "Bar" ->  cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.verde_claro))
-                        "Restaurante" ->  cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.beige))
-                        "Heladeria" ->  cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.morado_claro))
+                        "Bar" -> {
+                            cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.verde_claro))
+                            imagen.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_icono_bar_negro))
+                        }
+                        "Restaurante" -> {
+                            cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.beige))
+                            imagen.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_icono_restaurante_negro))
+                        }
+                        "Heladeria" -> {
+                            cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.morado_claro))
+                            imagen.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_icono_helado_negro))
+                        }
                     }
                     btnCarta.backgroundTintList = ColorStateList.valueOf(itemView.context.getColor(R.color.azul))
                     btnLlamar.backgroundTintList = ColorStateList.valueOf(itemView.context.getColor(R.color.azul))
@@ -180,6 +189,7 @@ class ZonaRecyclerAdapter(var zonas: MutableList<Zona>) :
                 " Protanopia" ->{
                     when (zona.establecimiento){
                         "Bar" ->  {
+                            imagen.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_icono_bar))
                             cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.rojo))
                             mostrarAcesible.setTextColor(itemView.context.getColor(R.color.white))
                             mostrarHorario.setTextColor(itemView.context.getColor(R.color.white))
@@ -193,6 +203,7 @@ class ZonaRecyclerAdapter(var zonas: MutableList<Zona>) :
                             txtUbicacion.setTextColor(itemView.context.getColor(R.color.white))
                         }
                         "Restaurante" -> {
+                            imagen.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_icono_restaurante_negro))
                             cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.beige))
                             mostrarAcesible.setTextColor(itemView.context.getColor(R.color.black))
                             mostrarHorario.setTextColor(itemView.context.getColor(R.color.black))
@@ -206,6 +217,7 @@ class ZonaRecyclerAdapter(var zonas: MutableList<Zona>) :
                             txtUbicacion.setTextColor(itemView.context.getColor(R.color.black))
                         }
                         "Heladeria" ->  {
+                            imagen.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_icono_helado))
                             cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.azul_fuerte))
                             mostrarAcesible.setTextColor(itemView.context.getColor(R.color.white))
                             mostrarHorario.setTextColor(itemView.context.getColor(R.color.white))
@@ -226,6 +238,7 @@ class ZonaRecyclerAdapter(var zonas: MutableList<Zona>) :
                 " Deuteranopia" ->{
                     when (zona.establecimiento){
                         "Bar" ->  {
+                            imagen.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_icono_bar))
                             cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.rojo))
                             mostrarAcesible.setTextColor(itemView.context.getColor(R.color.white))
                             mostrarHorario.setTextColor(itemView.context.getColor(R.color.white))
@@ -239,6 +252,7 @@ class ZonaRecyclerAdapter(var zonas: MutableList<Zona>) :
                             txtUbicacion.setTextColor(itemView.context.getColor(R.color.white))
                         }
                         "Restaurante" -> {
+                            imagen.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_icono_restaurante_negro))
                             cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.beige))
                             mostrarAcesible.setTextColor(itemView.context.getColor(R.color.black))
                             mostrarHorario.setTextColor(itemView.context.getColor(R.color.black))
@@ -252,6 +266,7 @@ class ZonaRecyclerAdapter(var zonas: MutableList<Zona>) :
                             txtUbicacion.setTextColor(itemView.context.getColor(R.color.black))
                         }
                         "Heladeria" ->  {
+                            imagen.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_icono_helado))
                             cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.azul_fuerte))
                             mostrarAcesible.setTextColor(itemView.context.getColor(R.color.white))
                             mostrarHorario.setTextColor(itemView.context.getColor(R.color.white))
@@ -272,6 +287,7 @@ class ZonaRecyclerAdapter(var zonas: MutableList<Zona>) :
                 " Tritanopia" ->{
                     when (zona.establecimiento){
                         "Bar" ->  {
+                            imagen.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_icono_bar))
                             cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.rojo))
                             mostrarAcesible.setTextColor(itemView.context.getColor(R.color.white))
                             mostrarHorario.setTextColor(itemView.context.getColor(R.color.white))
@@ -285,6 +301,7 @@ class ZonaRecyclerAdapter(var zonas: MutableList<Zona>) :
                             txtUbicacion.setTextColor(itemView.context.getColor(R.color.white))
                         }
                         "Restaurante" -> {
+                            imagen.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_icono_restaurante_negro))
                             cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.beige))
                             mostrarAcesible.setTextColor(itemView.context.getColor(R.color.black))
                             mostrarHorario.setTextColor(itemView.context.getColor(R.color.black))
@@ -298,6 +315,7 @@ class ZonaRecyclerAdapter(var zonas: MutableList<Zona>) :
                             txtUbicacion.setTextColor(itemView.context.getColor(R.color.black))
                         }
                         "Heladeria" ->  {
+                            imagen.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_icono_helado))
                             cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.azul_fuerte))
                             mostrarAcesible.setTextColor(itemView.context.getColor(R.color.white))
                             mostrarHorario.setTextColor(itemView.context.getColor(R.color.white))
@@ -373,9 +391,18 @@ class ZonaRecyclerAdapter(var zonas: MutableList<Zona>) :
                 else ->
                 {
                     when (zona.establecimiento){
-                        "Bar" ->  cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.verde_claro))
-                        "Restaurante" ->  cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.beige))
-                        "Heladeria" ->  cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.morado_claro))
+                        "Bar" -> {
+                            cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.verde_claro))
+                            imagen.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_icono_bar_negro))
+                        }
+                        "Restaurante" -> {
+                            cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.beige))
+                            imagen.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_icono_restaurante_negro))
+                        }
+                        "Heladeria" -> {
+                            cardZona.setCardBackgroundColor(itemView.context.getColor(R.color.morado_claro))
+                            imagen.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_icono_helado_negro))
+                        }
                     }
                     btnCarta.backgroundTintList = ColorStateList.valueOf(itemView.context.getColor(R.color.azul))
                     btnLlamar.backgroundTintList = ColorStateList.valueOf(itemView.context.getColor(R.color.azul))

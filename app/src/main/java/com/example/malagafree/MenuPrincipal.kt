@@ -5,23 +5,29 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.ContextThemeWrapper
+import android.view.MenuItem
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.TextView
+import android.widget.PopupMenu
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.carlosml.malagafree.R
 import com.example.malagafree.Componentes.ModoInversivo
+import com.example.malagafree.Componentes.Sponsored
+import com.example.malagafree.Componentes.Suscripcion
 import com.example.malagafree.Mapa.ZonasMenuMapa
 import com.example.malagafree.Productos.BuscarProductos
 import com.example.malagafree.Productos.MenuProductos
 import com.example.malagafree.Productos.RecyclerProductos
 import com.example.malagafree.TicketsYNoticias.Ticket
+
 import java.util.*
 
 
 class MenuPrincipal : AppCompatActivity() {
-
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +35,6 @@ class MenuPrincipal : AppCompatActivity() {
 
         ModoInversivo.setImmersiveMode(this)
 
-        val spinnerDalt: TextView = findViewById(R.id.spinnerDaltonico)
         val btnIrMapa: Button = findViewById(R.id.btnMapa)
         val btnIrProducto: Button = findViewById(R.id.btnProductos)
         val btnIrResNoti: Button = findViewById(R.id.btnReseNoti)
@@ -38,6 +43,10 @@ class MenuPrincipal : AppCompatActivity() {
         val lytBuscar: ConstraintLayout = findViewById(R.id.lytBtnBuscar)
         val lytScanner: ConstraintLayout = findViewById(R.id.lytBtnScanner)
         val img: ImageView = findViewById(R.id.imageView)
+        val btnMenu: ImageButton = findViewById(R.id.menu)
+        val preferences = getSharedPreferences("PreferenciaDaltonico", Context.MODE_PRIVATE)
+        val opcionSeleccionada = preferences.getString("opcionSeleccionada", "")
+
 
         // Solicitar permiso de ubicación al hacer clic en el botón del mapa
         btnIrMapa.setOnClickListener {
@@ -69,35 +78,8 @@ class MenuPrincipal : AppCompatActivity() {
             startActivity(intent)
         }
 
+        btnMenu.setOnClickListener { showPopupMenu(it) }
 
-        val opcionesDaltonico = arrayListOf(" Normal", " Protanopia", " Deuteranopia", " Tritanopia", " Acromatía")
-
-        val preferences = getSharedPreferences("PreferenciaDaltonico", Context.MODE_PRIVATE)
-        val opcionSeleccionada = preferences.getString("opcionSeleccionada", "")
-
-        if (opcionSeleccionada.isNullOrEmpty()) {
-            spinnerDalt.text = " Normal"
-        } else {
-            spinnerDalt.text = opcionSeleccionada
-        }
-
-        spinnerDalt.setOnClickListener {
-            val builder = AlertDialog.Builder(this, R.style.AlertDialogStyle) // Aplicar el estilo personalizado
-            builder.setTitle("Selecciona una opción")
-            builder.setItems(opcionesDaltonico.toTypedArray()) { _, which ->
-                val selectedOption = opcionesDaltonico[which]
-                spinnerDalt.text = selectedOption
-                val editor: SharedPreferences.Editor = preferences.edit()
-                editor.putString("opcionSeleccionada", selectedOption)
-                editor.apply()
-                recreate()
-            }
-            builder.setNegativeButton("Cancelar", null)
-
-            val dialog = builder.create()
-            dialog.setCanceledOnTouchOutside(false) // No se puede hacer clic fuera del diálogo
-            dialog.show()
-        }
 
         when (opcionSeleccionada) {
             " Acromatía" -> {
@@ -110,6 +92,7 @@ class MenuPrincipal : AppCompatActivity() {
                 btnRapidoBus.setImageDrawable(getDrawable(R.drawable.ic_icono_lupa_blanco))
                 btnRapidoBus.setBackgroundColor(getColor(R.color.negro_claro))
                 btnRapidoScn.setImageDrawable(getDrawable(R.drawable.barcode_blanco))
+                btnMenu.setImageDrawable(getDrawable(R.drawable.ic_icono_menu_desp_negro))
             }
             else -> {
                 btnIrMapa.setBackgroundColor(getColor(R.color.azul))
@@ -121,16 +104,54 @@ class MenuPrincipal : AppCompatActivity() {
                 btnRapidoBus.setBackgroundColor(getColor(R.color.white))
                 btnRapidoBus.setImageDrawable(getDrawable(R.drawable.ic_icono_lupa))
                 btnRapidoScn.setImageDrawable(getDrawable(R.drawable.barcode))
+                btnMenu.setImageDrawable(getDrawable(R.drawable.ic_icono_menu_desp))
+            }
+        }
+    }
+
+    private fun showPopupMenu(anchorView: android.view.View) {
+        val popupMenu = PopupMenu(ContextThemeWrapper(this, R.style.MyPopupMenuStyle), anchorView)
+        popupMenu.inflate(R.menu.menu_principal)
+
+        val preferences = getSharedPreferences("PreferenciaDaltonico", Context.MODE_PRIVATE)
+
+
+        popupMenu.setOnMenuItemClickListener { item: MenuItem ->
+            when (item.itemId) {
+                R.id.opcionDaltonico -> {
+                    val opcionesDaltonico = arrayListOf(" Normal", " Protanopia", " Deuteranopia", " Tritanopia", " Acromatía")
+                    val builder = AlertDialog.Builder(this, R.style.AlertDialogStyle) // Aplicar el estilo personalizado
+                    builder.setTitle("Selecciona una opción")
+                    builder.setItems(opcionesDaltonico.toTypedArray()) { _, which ->
+                        val selectedOption = opcionesDaltonico[which]
+                        val editor: SharedPreferences.Editor = preferences.edit()
+                        editor.putString("opcionSeleccionada", selectedOption)
+                        editor.apply()
+                        recreate()
+                    }
+                    builder.setNegativeButton("Cancelar", null)
+
+                    val dialog = builder.create()
+                    dialog.setCanceledOnTouchOutside(false) // No se puede hacer clic fuera del diálogo
+                    dialog.show()
+                    true
+                }
+                R.id.Sponsored -> {
+                    val intent = Intent (this, Sponsored::class.java)
+                    this.startActivity(intent)
+                    true
+                }
+                R.id.Suscripcion -> {
+                    val intent = Intent (this, Suscripcion::class.java)
+                    this.startActivity(intent)
+                    true
+                }
+                else -> false
             }
         }
 
-
-
-
-
+        popupMenu.show()
     }
-
-
 
 
 /*

@@ -3,10 +3,10 @@ package com.example.malagafree.TicketsYNoticias
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.malagafree.Componentes.ModoInversivo
-import com.example.malagafree.R
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.carlosml.malagafree.R
 import com.google.firebase.firestore.FirebaseFirestore
 
 class Noticias : AppCompatActivity() {
