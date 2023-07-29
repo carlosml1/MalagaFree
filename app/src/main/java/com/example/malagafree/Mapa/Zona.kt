@@ -12,5 +12,6 @@ data class Zona(
     val accesible: String,
     val ubicacion: String,
     val zona: String,
-    val establecimiento: String
+    val establecimiento: String,
+    //val foto: String
 )

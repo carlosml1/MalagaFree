@@ -88,6 +88,7 @@ class MostrarZonaRecycler : AppCompatActivity() {
 
         val nombreZona = intent.getStringExtra("nombreZona")
 
+        //textTitulo.text = "Restaurantes, Bares y Heladerias \n De Málaga"
         textTitulo.text = ponerTituloZona(nombreZona.toString())
 
         recyclerView = findViewById(R.id.recyclerZona)
@@ -110,10 +111,11 @@ class MostrarZonaRecycler : AppCompatActivity() {
                     val carta = documentSnapshot.getString("Carta")
                     val ubicacion = documentSnapshot.getString("Ubicacion")
                     val Accesibilidad = documentSnapshot.getString("Accesible")
-                    val id = documentSnapshot.getLong("id")
                     val establecimiento = documentSnapshot.getString("Establecimiento")
+                    //val foto = documentSnapshot.getString("Foto")
+                    val id = documentSnapshot.getLong("id")
 
-                    if (numero != null && latitud != null && longitud != null && horario != null && id != null && ubicacion != null && Accesibilidad != null && establecimiento != null) {
+                    if (numero != null && latitud != null && longitud != null && horario != null  && ubicacion != null && Accesibilidad != null && establecimiento != null && id != null) {
                         val zona = Zona(
                             nombre,
                             numero,
@@ -126,6 +128,7 @@ class MostrarZonaRecycler : AppCompatActivity() {
                             ubicacion,
                             nombreZona.toString(),
                             establecimiento
+                            //foto
                         )
                         zonas.add(zona)
                     }

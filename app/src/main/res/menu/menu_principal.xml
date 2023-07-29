@@ -4,6 +4,8 @@
         android:title="Modo Daltonicos" />
     <item android:id="@+id/Sponsored"
         android:title="Sponsored" />
-    <item android:id="@+id/Suscripcion"
-        android:title="Suscripción" />
+    <item android:id="@+id/Donativo"
+        android:title="Donativo" />
+    <item android:id="@+id/Informacion"
+        android:title="Informacion" />
 </menu>

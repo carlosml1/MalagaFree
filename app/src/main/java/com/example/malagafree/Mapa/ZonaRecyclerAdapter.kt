@@ -106,6 +106,7 @@ class ZonaRecyclerAdapter(var zonas: MutableList<Zona>) :
                 itemView.context.startActivity(dialIntent)
             }
 
+            //val storageRef = Firebase.storage.reference.child("Fotos/${zona.foto}.PNG")
             val numero = convertirNumeroATexto(zona.id.toInt())
             val nombreImagen = zona.zona.toLowerCase() + numero
             val storageRef = Firebase.storage.reference.child("Fotos/$nombreImagen.PNG")
@@ -136,6 +137,7 @@ class ZonaRecyclerAdapter(var zonas: MutableList<Zona>) :
                 val numero = convertirNumeroATexto(zona.id.toInt())
                 val nombreImagen = zona.zona.toLowerCase() + numero
                 imagenTituloDialog.text = zona.nombre
+                //val storageReference = Firebase.storage.reference.child("Fotos/${zona.foto}.PNG")
                 val storageReference = Firebase.storage.reference.child("Fotos/$nombreImagen.PNG")
 
                 storageReference.downloadUrl.addOnSuccessListener { uri ->

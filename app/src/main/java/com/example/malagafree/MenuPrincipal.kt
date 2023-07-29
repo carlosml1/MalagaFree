@@ -1,9 +1,14 @@
 package com.example.malagafree
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.location.Geocoder
+import android.location.LocationManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.ContextThemeWrapper
 import android.view.MenuItem
@@ -11,23 +16,32 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.PopupMenu
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.carlosml.malagafree.R
 import com.example.malagafree.Componentes.ModoInversivo
 import com.example.malagafree.Componentes.Sponsored
 import com.example.malagafree.Componentes.Suscripcion
+import com.example.malagafree.Mapa.MostrarZonaRecycler
 import com.example.malagafree.Mapa.ZonasMenuMapa
 import com.example.malagafree.Productos.BuscarProductos
 import com.example.malagafree.Productos.MenuProductos
 import com.example.malagafree.Productos.RecyclerProductos
+import com.example.malagafree.TicketsYNoticias.MenuTicketsYNoticias
 import com.example.malagafree.TicketsYNoticias.Ticket
+import java.text.Normalizer
 
 import java.util.*
 
 
 class MenuPrincipal : AppCompatActivity() {
+
+    private val LOCATION_PERMISSION_REQUEST_CODE = 123
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,10 +76,10 @@ class MenuPrincipal : AppCompatActivity() {
 
         btnIrResNoti.setOnClickListener {
             // TODO: Esto está en revisión para mirar cómo hacer las noticias
-            /*val intent = Intent(this, MenuTicketsYNoticias::class.java)
-            startActivity(intent)*/
-            val intent = Intent (this, Ticket::class.java)
-            this.startActivity(intent)
+            val intent = Intent(this, MenuTicketsYNoticias::class.java)
+            startActivity(intent)
+            /*val intent = Intent (this, Ticket::class.java)
+            this.startActivity(intent)*/
         }
 
         btnRapidoBus.setOnClickListener {
@@ -141,9 +155,64 @@ class MenuPrincipal : AppCompatActivity() {
                     this.startActivity(intent)
                     true
                 }
-                R.id.Suscripcion -> {
+                /*R.id.Suscripcion -> {
+
                     val intent = Intent (this, Suscripcion::class.java)
                     this.startActivity(intent)
+                    true
+                    <item android:id="@+id/Suscripcion"
+        android:title="Suscripción" />
+                }*/
+                R.id.Donativo ->{
+                    val dialog = Dialog(this)
+                    dialog.setContentView(R.layout.dialog_menu_donativo)
+                    dialog.setCancelable(true)
+
+                    val txtDonativo = dialog.findViewById<TextView>(R.id.txtDonativo)
+                    val btnDonar = dialog.findViewById<Button>(R.id.btnDonar)
+                    val opcionSeleccionada = preferences.getString("opcionSeleccionada", "")
+                    if(opcionSeleccionada!!.contains("Acromatía")){
+                        txtDonativo.setTextColor(getColor(R.color.negro_claro))
+                        btnDonar.setBackgroundColor(getColor(R.color.negro_claro))
+                    }else{
+                        txtDonativo.setTextColor(getColor(R.color.azul))
+                        btnDonar.setBackgroundColor(getColor(R.color.azul))
+                    }
+
+                    txtDonativo.text = getString(R.string.msg_donativvo)
+
+                    btnDonar.setOnClickListener {
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        intent.data = Uri.parse("https://www.paypal.com/donate/?hosted_button_id=WDUXV5YXXHGSU")
+                        startActivity(intent);
+                        dialog.dismiss()
+                    }
+
+                    dialog.show()
+                    true
+                }
+                R.id.Informacion -> {
+                    val dialog = Dialog(this)
+                    dialog.setContentView(R.layout.dialog_menu_informacion)
+                    dialog.setCancelable(true)
+
+                    val txtInformacion = dialog.findViewById<TextView>(R.id.txtInformacion)
+                    val btnAceptar = dialog.findViewById<Button>(R.id.btnAceptar)
+                    val opcionSeleccionada = preferences.getString("opcionSeleccionada", "")
+                    if(opcionSeleccionada!!.contains("Acromatía")){
+                        txtInformacion.setTextColor(getColor(R.color.negro_claro))
+                        btnAceptar.setBackgroundColor(getColor(R.color.negro_claro))
+                    }else{
+                        txtInformacion.setTextColor(getColor(R.color.azul))
+                        btnAceptar.setBackgroundColor(getColor(R.color.azul))
+                    }
+
+
+                    btnAceptar.setOnClickListener {
+                        dialog.dismiss()
+                    }
+
+                    dialog.show()
                     true
                 }
                 else -> false
@@ -154,88 +223,101 @@ class MenuPrincipal : AppCompatActivity() {
     }
 
 
-/*
-    // Método para solicitar el permiso de ubicación en tiempo de ejecución
-    private fun requestLocationPermission() {
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                LOCATION_PERMISSION_REQUEST_CODE
-            )
-        } else {
-            checkLocationPermission()
+
+        // Método para solicitar el permiso de ubicación en tiempo de ejecución
+        private fun requestLocationPermission() {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                    LOCATION_PERMISSION_REQUEST_CODE
+                )
+            } else {
+                checkLocationPermission()
+            }
         }
-    }
 
-    // Método para verificar si se tiene el permiso de ubicación y obtener la ubicación actual
-    private fun checkLocationPermission() {
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // El permiso de ubicación fue denegado
-            Toast.makeText(this, "Permiso de ubicación denegado", Toast.LENGTH_SHORT).show()
-        } else {
-            val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-            val location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-            location?.let {
-                val latitude = it.latitude
-                val longitude = it.longitude
-                val geocoder = Geocoder(this, Locale.getDefault())
-                val addresses = geocoder.getFromLocation(latitude, longitude, 1)
-                if (!addresses.isNullOrEmpty()) {
-                    val country = addresses[0].countryName
-                    if (country == "España") {
-                        // Está en España
-                        val city = addresses[0].subAdminArea
+        // Método para verificar si se tiene el permiso de ubicación y obtener la ubicación actual
+        @SuppressLint("SetTextI18n")
+        private fun checkLocationPermission() {
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                // El permiso de ubicación fue denegado
+                Toast.makeText(this, "Permiso de ubicación denegado", Toast.LENGTH_SHORT).show()
+            } else {
+                val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                val location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+                location?.let {
+                    val btnIrMapa: Button = findViewById(R.id.btnMapa)
+                    val latitude = it.latitude
+                    val longitude = it.longitude
+                    val geocoder = Geocoder(this, Locale.getDefault())
+                    val addresses = geocoder.getFromLocation(latitude, longitude, 1)
+                    if (!addresses.isNullOrEmpty()) {
+                        val country = addresses[0].countryName
+                        if (country == "España") {
+                            // Está en España
+                            val city = addresses[0].subAdminArea
+                            btnIrMapa.text = "Mapa de $city"
+                            if(city == "Málaga"){
+                                /*val intent = Intent (this, ZonasMenuMapa::class.java)
+                                intent.putExtra("ciudad",city)
+                                this.startActivity(intent)*/
 
-                        if(city == "Málaga"){
-                            //val intent = Intent (this, MenuMapa::class.java)
-                            intent.putExtra("ciudad",city)
-                            this.startActivity(intent)
-                        }else{
-                            Toast.makeText(this, "Esta funcion ahora mismo solo va en $city", Toast.LENGTH_SHORT).show()
+                                val intent = Intent(this, MostrarZonaRecycler::class.java)
+                                val variableString = removeAccents(city)
+                                intent.putExtra("nombreZona", variableString)
+                                this.startActivity(intent)
+                            }else{
+                                Toast.makeText(this, "Esta funcion ahora mismo solo va en Málaga", Toast.LENGTH_SHORT).show()
+                            }
+
+                        } else {
+                            // No está en España
+                            Toast.makeText(this, "No funciona fuera de España", Toast.LENGTH_SHORT).show()
                         }
-
                     } else {
-                        // No está en España
-                        Toast.makeText(this, "No funciona fuera de España", Toast.LENGTH_SHORT).show()
+                        // No se pudo obtener la ubicación
+                        Toast.makeText(this, "No se pudo obtener la ubicación", Toast.LENGTH_SHORT).show()
                     }
-                } else {
+                } ?: run {
                     // No se pudo obtener la ubicación
                     Toast.makeText(this, "No se pudo obtener la ubicación", Toast.LENGTH_SHORT).show()
                 }
-            } ?: run {
-                // No se pudo obtener la ubicación
-                Toast.makeText(this, "No se pudo obtener la ubicación", Toast.LENGTH_SHORT).show()
             }
         }
+
+    fun removeAccents(input: String): String {
+        val normalizedString = Normalizer.normalize(input, Normalizer.Form.NFD)
+        val pattern = "\\p{InCombiningDiacriticalMarks}+".toRegex()
+        return pattern.replace(normalizedString, "")
     }
 
 
-    // Método para manejar la respuesta de la solicitud de permiso
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                checkLocationPermission()
-            } else {
-                Toast.makeText(
-                    this,
-                    "Permiso de ubicación denegado",
-                    Toast.LENGTH_SHORT
-                ).show()
+        // Método para manejar la respuesta de la solicitud de permiso
+        override fun onRequestPermissionsResult(
+            requestCode: Int,
+            permissions: Array<out String>,
+            grantResults: IntArray
+        ) {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+            if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    checkLocationPermission()
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Permiso de ubicación denegado",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
-    }*/
 }
