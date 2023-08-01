@@ -4,53 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MenuPrincipal"
-    android:background="@color/white">
-
-
+    tools:context="com.example.malagafree.ModoAdmin.ModoAdmin">
 
     <Button
-        android:id="@+id/btnPorCodigoDeBarra"
+        android:id="@+id/btnCrearProducto"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        style="@style/Widget.Material3.Button"
         android:textColor="@color/white"
         android:backgroundTint="@color/azul"
-        android:text="@string/buscar_por_codigo_de_barra"
+        android:text="Crear Producto"
         android:textStyle="bold"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/btnPorNombreProducto"/>
+        app:layout_constraintBottom_toTopOf="@+id/btnCrearLocal"/>
     <Button
-        android:id="@+id/btnPorNombreProducto"
+        android:id="@+id/btnCrearLocal"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        style="@style/Widget.Material3.Button"
         android:textColor="@color/white"
         android:backgroundTint="@color/azul"
-        android:text="@string/buscar_por_nombre_del_producto"
+        android:text="Crear Local"
         android:textStyle="bold"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPorCodigoDeBarra"
-        app:layout_constraintBottom_toTopOf="@+id/btnPorProductosGenericos"/>
-
-    <Button
-        android:id="@+id/btnPorProductosGenericos"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        style="@style/Widget.Material3.Button"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/azul"
-        android:text="@string/buscar_por_producots_genericos"
-        android:textStyle="bold"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPorNombreProducto"
+        app:layout_constraintTop_toBottomOf="@+id/btnCrearProducto"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 

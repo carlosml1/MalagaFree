@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.view.ContextThemeWrapper
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.PopupMenu
@@ -29,11 +30,13 @@ import com.example.malagafree.Componentes.Sponsored
 import com.example.malagafree.Componentes.Suscripcion
 import com.example.malagafree.Mapa.MostrarZonaRecycler
 import com.example.malagafree.Mapa.ZonasMenuMapa
+import com.example.malagafree.ModoAdmin.ModoAdmin
 import com.example.malagafree.Productos.BuscarProductos
 import com.example.malagafree.Productos.MenuProductos
 import com.example.malagafree.Productos.RecyclerProductos
 import com.example.malagafree.TicketsYNoticias.MenuTicketsYNoticias
 import com.example.malagafree.TicketsYNoticias.Ticket
+import java.security.MessageDigest
 import java.text.Normalizer
 
 import java.util.*
@@ -60,6 +63,59 @@ class MenuPrincipal : AppCompatActivity() {
         val btnMenu: ImageButton = findViewById(R.id.menu)
         val preferences = getSharedPreferences("PreferenciaDaltonico", Context.MODE_PRIVATE)
         val opcionSeleccionada = preferences.getString("opcionSeleccionada", "")
+        val preferencesAdmin = getSharedPreferences("modoAdminPreferencias", Context.MODE_PRIVATE)
+        val opcionSeleccionadaAdmin = preferencesAdmin.getBoolean("modoAdmin", false)
+        val btn1: Button = findViewById(R.id.btnModoAdmin1)
+        val btn2: Button = findViewById(R.id.btnModoAdmin2)
+        val btnPM: Button = findViewById(R.id.btnPruebaMap)
+
+        btnPM.setOnClickListener {
+
+        }
+
+        var btn1Clicked = false
+
+        btn1.setOnClickListener {
+            btn1Clicked = true
+        }
+
+        btn2.setOnClickListener {
+            if (btn1Clicked) {
+                val dialog = Dialog(this)
+                dialog.setContentView(R.layout.dialog_modo_admin)
+                dialog.setCancelable(true)
+
+                val contraseña = dialog.findViewById<EditText>(R.id.ContraseñaAdmin)
+                val btnAdmin: Button = dialog.findViewById(R.id.btnAdmin)
+
+                btnAdmin.setOnClickListener {
+                    val hashedPassword = sha256Hash(contraseña.text.toString())
+
+                    if (hashedPassword == "8cdf914431e41b74815303918e3cbf6276a57d0f58161a18388f324c02a98d27") {
+                        val preferencesAdmin = getSharedPreferences("modoAdminPreferencias", Context.MODE_PRIVATE)
+                        val editor: SharedPreferences.Editor = preferencesAdmin.edit()
+                        editor.putString("hashedPassword", hashedPassword) // Guardar el hash en lugar de la contraseña original
+                        editor.putBoolean("modoAdmin", true)
+                        editor.apply()
+                        recreate()
+                        dialog.dismiss()
+                    } else {
+                        val preferencesAdmin = getSharedPreferences("modoAdminPreferencias", Context.MODE_PRIVATE)
+                        val editor: SharedPreferences.Editor = preferencesAdmin.edit()
+                        editor.putString("hashedPassword", hashedPassword) // Guardar el hash en lugar de la contraseña original
+                        editor.putBoolean("modoAdmin", false)
+                        editor.apply()
+                        recreate()
+                        dialog.dismiss()
+                    }
+                }
+
+                dialog.show()
+            } else {
+            }
+        }
+
+
 
 
         // Solicitar permiso de ubicación al hacer clic en el botón del mapa
@@ -75,11 +131,14 @@ class MenuPrincipal : AppCompatActivity() {
         }
 
         btnIrResNoti.setOnClickListener {
-            // TODO: Esto está en revisión para mirar cómo hacer las noticias
-            val intent = Intent(this, MenuTicketsYNoticias::class.java)
-            startActivity(intent)
-            /*val intent = Intent (this, Ticket::class.java)
-            this.startActivity(intent)*/
+
+            if(opcionSeleccionadaAdmin){
+                val intent = Intent(this, ModoAdmin::class.java)
+                startActivity(intent)
+            }else{
+                val intent = Intent (this, Ticket::class.java)
+                this.startActivity(intent)
+            }
         }
 
         btnRapidoBus.setOnClickListener {
@@ -222,7 +281,20 @@ class MenuPrincipal : AppCompatActivity() {
         popupMenu.show()
     }
 
+        fun sha256Hash(input: String): String {
+            val bytes = MessageDigest.getInstance("SHA-256").digest(input.toByteArray())
+            val result = StringBuilder()
 
+            for (byte in bytes) {
+                val hexString = Integer.toHexString(0xFF and byte.toInt())
+                if (hexString.length == 1) {
+                    result.append('0')
+                }
+                result.append(hexString)
+            }
+
+            return result.toString()
+        }
 
         // Método para solicitar el permiso de ubicación en tiempo de ejecución
         private fun requestLocationPermission() {

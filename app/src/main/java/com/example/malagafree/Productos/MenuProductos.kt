@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Button
 import com.carlosml.malagafree.R
 import com.example.malagafree.Componentes.ModoInversivo
+import com.example.malagafree.ProductosGenericos.ProductosGenericosPantalla
 
 class MenuProductos : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,6 +18,12 @@ class MenuProductos : AppCompatActivity() {
 
         val btnScanner : Button = findViewById(R.id.btnPorCodigoDeBarra)
         val btnNombre : Button = findViewById(R.id.btnPorNombreProducto)
+        val btnGenerico : Button = findViewById(R.id.btnPorProductosGenericos)
+
+        btnGenerico.setOnClickListener {
+            val intent = Intent (this, ProductosGenericosPantalla::class.java)
+            this.startActivity(intent)
+        }
 
         btnScanner.setOnClickListener {
 
@@ -38,10 +45,12 @@ class MenuProductos : AppCompatActivity() {
             " Acromatía" -> {
                btnNombre.setBackgroundColor(getColor(R.color.negro_claro))
                btnScanner.setBackgroundColor(getColor(R.color.negro_claro))
+                btnGenerico.setBackgroundColor(getColor(R.color.negro_claro))
             }
             else -> {
                 btnNombre.setBackgroundColor(getColor(R.color.azul))
                 btnScanner.setBackgroundColor(getColor(R.color.azul))
+                btnGenerico.setBackgroundColor(getColor(R.color.azul))
             }
         }
 
