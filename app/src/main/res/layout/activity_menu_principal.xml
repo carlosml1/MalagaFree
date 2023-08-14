@@ -19,16 +19,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-    <Button
-        android:id="@+id/btnPruebaMap"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        style="@style/Widget.Material3.Button"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
-
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"

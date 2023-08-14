@@ -68,8 +68,7 @@ class CrearLocal : AppCompatActivity() {
             "Latitud" to Latitud.text.toString(),
             "Longitud" to Longitud.text.toString(),
             "Numero" to Numero.text.toString().toInt(),
-            "Ubicacion" to Ubicacion.text.toString(),
-            "id" to id.text.toString().toInt()
+            "Ubicacion" to Ubicacion.text.toString()
         )
 
         val zona = findViewById<EditText>(R.id.zona).text.toString()

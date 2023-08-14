@@ -30,6 +30,7 @@ import com.example.malagafree.Componentes.Sponsored
 import com.example.malagafree.Componentes.Suscripcion
 import com.example.malagafree.Mapa.MostrarZonaRecycler
 import com.example.malagafree.Mapa.ZonasMenuMapa
+import com.example.malagafree.MapaInteractivo.MapaInteractivo
 import com.example.malagafree.ModoAdmin.ModoAdmin
 import com.example.malagafree.Productos.BuscarProductos
 import com.example.malagafree.Productos.MenuProductos
@@ -67,11 +68,6 @@ class MenuPrincipal : AppCompatActivity() {
         val opcionSeleccionadaAdmin = preferencesAdmin.getBoolean("modoAdmin", false)
         val btn1: Button = findViewById(R.id.btnModoAdmin1)
         val btn2: Button = findViewById(R.id.btnModoAdmin2)
-        val btnPM: Button = findViewById(R.id.btnPruebaMap)
-
-        btnPM.setOnClickListener {
-
-        }
 
         var btn1Clicked = false
 

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.carlosml.malagafree.R
 import com.example.malagafree.Componentes.ModoInversivo
+import com.example.malagafree.MapaInteractivo.MapaInteractivo
 import com.example.malagafree.MenuPrincipal
 import com.example.malagafree.Productos.RecyclerProductos
 
@@ -42,6 +43,7 @@ class MostrarZonaRecycler : AppCompatActivity() {
         val btnRapidoHome: ImageButton = findViewById(R.id.btnRapidoPrincipal)
         val btnRapidoProducto: ImageButton = findViewById(R.id.btnRapidoProducto)
         val btnRapidoMapa: ImageButton = findViewById(R.id.btnRapidoMapa)
+        val btnRapidoMapaInteractivo: ImageButton = findViewById(R.id.btnRapidoMapaInteractivo)
 
         val preferences = getSharedPreferences("PreferenciaDaltonico", Context.MODE_PRIVATE)
         val opcionSeleccionada = preferences.getString("opcionSeleccionada", "")
@@ -77,6 +79,12 @@ class MostrarZonaRecycler : AppCompatActivity() {
             val intent = Intent (this, RecyclerProductos::class.java)
             finish()
             this.startActivity(intent)
+        }
+
+        btnRapidoMapaInteractivo.setOnClickListener {
+            val intent = Intent(this, MapaInteractivo::class.java)
+            finish()
+            startActivity(intent)
         }
 
         btnRapidoMapa.setOnClickListener {

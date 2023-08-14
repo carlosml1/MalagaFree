@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".Componentes.Sponsored">
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/tituloSponsored"
@@ -35,6 +34,17 @@
         android:background="@color/white"
         android:src="@drawable/sponsoresalmafilms"
         />
+
+    <ImageButton
+        android:id="@+id/singlutismo"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/white"
+        android:src="@drawable/logosinglutismo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/almafilms" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,6 +38,7 @@
     <string name="Text_dialog_modo_admin">Introduzca la contraseña</string>
     <string name="buscar_por_producots_genericos">Buscar por Producots Genericos</string>
     <string name="productos_genericos">PRODUCTOS GENERICOS</string>
+    <string name="buscar_local_por_nombre">Buscar Local por Nombre</string>
 
 
 </resources>

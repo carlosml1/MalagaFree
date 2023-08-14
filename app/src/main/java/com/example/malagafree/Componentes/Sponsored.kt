@@ -16,10 +16,17 @@ class Sponsored : AppCompatActivity() {
         ModoInversivo.setImmersiveMode(this)
 
         val almafilms: ImageButton = findViewById(R.id.almafilms)
+        val singlutismo: ImageButton = findViewById(R.id.singlutismo)
 
         almafilms.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse("http://almafilms.es/")
+            startActivity(intent);
+        }
+
+        singlutismo.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("https://www.singlutenismo.com/")
             startActivity(intent);
         }
     }
