@@ -25,6 +25,7 @@ class Ticket : AppCompatActivity() {
     private lateinit var codigoIdentificadorEditText: TextInputEditText
     private lateinit var btnInfoIdentificador: ImageButton
     private lateinit var textTicket: TextView
+    private lateinit var btnVolver: ImageButton
 
     private lateinit var firebaseFirestore: FirebaseFirestore
     private lateinit var firebaseStorage: FirebaseStorage
@@ -40,6 +41,11 @@ class Ticket : AppCompatActivity() {
         nombreEmpresaEditText = findViewById(R.id.textNombreEmpresa_editText)
         codigoIdentificadorEditText = findViewById(R.id.textCodigoIdentidicador_editText)
         btnInfoIdentificador = findViewById(R.id.btnInfoIdentificacion)
+        btnVolver = findViewById(R.id.btnVolverTicket)
+
+        btnVolver.setOnClickListener {
+            onBackPressed()
+        }
 
         btnInfoIdentificador.setOnClickListener {
             val builder = AlertDialog.Builder(this)

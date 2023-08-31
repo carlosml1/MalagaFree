@@ -7,6 +7,17 @@
     tools:context=".TicketsYNoticias.Ticket"
     android:background="@color/white">
 
+    <ImageButton
+        android:id="@+id/btnVolverTicket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_icono_flacha_back"
+        android:background="@color/white"
+        android:padding="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
 
     <TextView
         android:id="@+id/textViewTicket"

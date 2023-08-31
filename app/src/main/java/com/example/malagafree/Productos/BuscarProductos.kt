@@ -11,6 +11,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
 import android.view.View
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -34,6 +35,11 @@ class BuscarProductos : AppCompatActivity() {
         binding = ActivityBuscarProductosBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.btnScanner.setOnClickListener { initScanner() }
+
+        val btnVolver : ImageButton = findViewById(R.id.btnVolverBuscarProductos)
+        btnVolver.setOnClickListener {
+            onBackPressed()
+        }
 
         val preferences = getSharedPreferences("PreferenciaDaltonico", Context.MODE_PRIVATE)
 

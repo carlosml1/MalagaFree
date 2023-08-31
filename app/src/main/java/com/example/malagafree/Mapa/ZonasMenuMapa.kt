@@ -29,6 +29,7 @@ class ZonasMenuMapa : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerZonas)
         val btnRapidoMapaInteractivo: ImageButton = findViewById(R.id.btnRapidoMapaInteractivo)
+        val btnVolver: ImageButton = findViewById(R.id.btnVolverZonasMenuMapa)
 
         val adapter = ZonasAdapter(todasLasZonas)
         recyclerView.adapter = adapter
@@ -38,6 +39,10 @@ class ZonasMenuMapa : AppCompatActivity() {
             val intent = Intent(this, MapaInteractivo::class.java)
             finish()
             startActivity(intent)
+        }
+
+        btnVolver.setOnClickListener {
+            onBackPressed()
         }
     }
 }

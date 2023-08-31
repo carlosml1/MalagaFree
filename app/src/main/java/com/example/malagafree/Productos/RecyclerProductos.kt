@@ -42,6 +42,10 @@ class RecyclerProductos : AppCompatActivity() {
         val btnRapidoHome: ImageButton = findViewById(R.id.btnRapidoPrincipal)
         val btnRapidoProducto: ImageButton = findViewById(R.id.btnRapidoProducto)
         val btnRapidoMapa: ImageButton = findViewById(R.id.btnRapidoMapa)
+        val btnVolver: ImageButton = findViewById(R.id.btnVolverRecyclerProductos)
+        btnVolver.setOnClickListener {
+            onBackPressed()
+        }
 
         val preferences = getSharedPreferences("PreferenciaDaltonico", Context.MODE_PRIVATE)
         val opcionSeleccionada = preferences.getString("opcionSeleccionada", "")

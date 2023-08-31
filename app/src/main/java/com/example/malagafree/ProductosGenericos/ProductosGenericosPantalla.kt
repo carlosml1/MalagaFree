@@ -2,6 +2,7 @@ package com.example.malagafree.ProductosGenericos
 
 import android.net.Uri
 import android.os.Bundle
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,12 @@ class ProductosGenericosPantalla : AppCompatActivity() {
         setContentView(R.layout.activity_productos_genericos)
 
         ModoInversivo.setImmersiveMode(this)
+
+        val btnVolver : ImageButton = findViewById(R.id.btnVolverProductosGenericos)
+
+        btnVolver.setOnClickListener {
+            onBackPressed()
+        }
 
         // Obtener referencia a Firestore
         val firestore = FirebaseFirestore.getInstance()

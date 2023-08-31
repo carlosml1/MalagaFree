@@ -44,6 +44,11 @@ class MostrarZonaRecycler : AppCompatActivity() {
         val btnRapidoProducto: ImageButton = findViewById(R.id.btnRapidoProducto)
         val btnRapidoMapa: ImageButton = findViewById(R.id.btnRapidoMapa)
         val btnRapidoMapaInteractivo: ImageButton = findViewById(R.id.btnRapidoMapaInteractivo)
+        val btnVolver: ImageButton = findViewById(R.id.btnVolverMostrarZonaRecycler)
+
+        btnVolver.setOnClickListener {
+            onBackPressed()
+        }
 
         val preferences = getSharedPreferences("PreferenciaDaltonico", Context.MODE_PRIVATE)
         val opcionSeleccionada = preferences.getString("opcionSeleccionada", "")

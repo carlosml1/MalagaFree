@@ -65,10 +65,10 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageButton
-            android:id="@+id/btnRapidoMapa"
+            android:id="@+id/btnVolverRecyclerProductos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_icono_mapa"
+            android:src="@drawable/ic_icono_flacha_back_blanca"
             android:padding="10dp"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
@@ -77,6 +77,21 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <ImageButton
+            android:id="@+id/btnRapidoMapa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_icono_mapa"
+            android:padding="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/azul_fuerte"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnVolverRecyclerProductos"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnRapidoPrincipal"
             />
         <ImageButton
             android:id="@+id/btnRapidoProducto"

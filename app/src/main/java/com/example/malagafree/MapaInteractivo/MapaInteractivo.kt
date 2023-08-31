@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import com.carlosml.malagafree.R
 import com.example.malagafree.Componentes.ModoInversivo
@@ -27,6 +28,11 @@ class MapaInteractivo : AppCompatActivity() {
         setContentView(R.layout.activity_mapa_interactivo)
 
         ModoInversivo.setImmersiveMode(this)
+
+        val btnVolver: ImageButton = findViewById(R.id.btnVolverMapaInteractivo)
+        btnVolver.setOnClickListener {
+            onBackPressed()
+        }
 
 
         val mapView = findViewById<MapView>(R.id.map_view)

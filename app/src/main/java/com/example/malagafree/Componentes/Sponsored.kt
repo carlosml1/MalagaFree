@@ -1,6 +1,7 @@
 package com.example.malagafree.Componentes
 
 import android.content.Intent
+import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageButton
@@ -15,18 +16,15 @@ class Sponsored : AppCompatActivity() {
 
         ModoInversivo.setImmersiveMode(this)
 
+        val btnVolver : ImageButton = findViewById(R.id.btnVolverSponsored)
+
+        btnVolver.setOnClickListener { onBackPressed() }
+
         val almafilms: ImageButton = findViewById(R.id.almafilms)
-        val singlutismo: ImageButton = findViewById(R.id.singlutismo)
 
         almafilms.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse("http://almafilms.es/")
-            startActivity(intent);
-        }
-
-        singlutismo.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse("https://www.singlutenismo.com/")
             startActivity(intent);
         }
     }

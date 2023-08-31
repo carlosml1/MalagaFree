@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import com.carlosml.malagafree.R
 import com.example.malagafree.Componentes.ModoInversivo
 import com.example.malagafree.ProductosGenericos.ProductosGenericosPantalla
@@ -19,6 +20,11 @@ class MenuProductos : AppCompatActivity() {
         val btnScanner : Button = findViewById(R.id.btnPorCodigoDeBarra)
         val btnNombre : Button = findViewById(R.id.btnPorNombreProducto)
         val btnGenerico : Button = findViewById(R.id.btnPorProductosGenericos)
+        val btnVolver : ImageButton = findViewById(R.id.btnVolverMenuProductos)
+
+        btnVolver.setOnClickListener {
+            onBackPressed()
+        }
 
         btnGenerico.setOnClickListener {
             val intent = Intent (this, ProductosGenericosPantalla::class.java)
